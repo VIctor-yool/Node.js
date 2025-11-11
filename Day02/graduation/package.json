@@ -1,0 +1,22 @@
+{
+  "name": "graduation",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ccxt": "^4.5.17",
+    "prompt-sync": "^4.2.0"
+  },
+  "bin": "index.js",
+  "pkg": {
+    "targets": [
+      "node18-win-x64"
+    ]
+  }
+}
