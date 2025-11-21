@@ -1,8 +1,8 @@
 {
-  "name": "sql",
+  "name": "summary",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "alpha.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,11 +10,10 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "devDependencies": {
-    "@faker-js/faker": "^10.1.0"
-  },
   "dependencies": {
-    "chance": "^1.1.13",
-    "exceljs": "^4.4.0"
+    "@prisma/client": "^6.19.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "prisma": "^6.19.0"
   }
 }

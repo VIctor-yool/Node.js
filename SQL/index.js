@@ -1,4 +1,6 @@
 const exceljs = require("exceljs");
+const Chance = require("chance");
+const chance = new Chance();
 
 const { Faker, ko } = require("@faker-js/faker");
 const getRandomInteger = (min, max) => {
@@ -8,47 +10,45 @@ const getRandomInteger = (min, max) => {
 };
 
 const makePerson = () => {
-  const randomName = new Faker({ locale: [ko] }).person.fullName();
-  const age = getRandomInteger(0, 80);
-
-  const purposeIndex = getRandomInteger(0, 2);
-  const departureIndex = getRandomInteger(0, 3);
-  const destinationIndex = getRandomInteger(0, 3);
-
-  const purpose = ["tourism", "business", "other"][purposeIndex];
-  const departure = ["incheon", "osaka", "fukuoka", "sapporo"][departureIndex];
-  const destination = ["tokyo", "osaka", "kyoto", "sapporo"][destinationIndex];
-  const period = getRandomInteger(1, 90);
+  const name = new Faker({ locale: [ko] }).person.fullName();
+  const gender = chance.weighted(["male", "female"], [60, 40]);
+  const salary = getRandomInteger(3000, 30000);
+  const departments = chance.weighted(
+    ["marketing", "IT", "advertising", "design", "finance"],
+    [50, 10, 20, 10, 10]
+  );
+  const position = chance.weighted(
+    ["intern", "assistant", "manager", "header"],
+    [10, 50, 30, 10]
+  );
 
   // 여기서도 큰 수정 없이 key만 추가
   return {
-    name: randomName,
-    age: age,
-    purpose: purpose,
-    departure: departure,
-    destination: destination,
-    periodOfStay: period,
+    name,
+    gender,
+    salary,
+    departments,
+    position,
   };
 };
 
 const generateExcel = async () => {
   const workbook = new exceljs.Workbook();
-  const sheet = workbook.addWorksheet("students");
+  const sheet = workbook.addWorksheet("mzoffice");
 
   sheet.columns = [
     { header: "name", key: "name" },
-    { header: "age", key: "age" },
-    { header: "purpose", key: "purpose" },
-    { header: "departure", key: "departure" },
-    { header: "destination", key: "destination" },
-    { header: "periodOfStay", key: "periodOfStay" },
+    { header: "gender", key: "gender" },
+    { header: "salary", key: "salary" },
+    { header: "departments", key: "departments" },
+    { header: "position", key: "position" },
   ];
 
-  for (let i = 0; i < 1000000; i++) {
+  for (let i = 0; i < 3000; i++) {
     sheet.addRow(makePerson());
   }
 
-  await workbook.csv.writeFile("japanTrip.csv");
+  await workbook.csv.writeFile("mzoffice.csv");
 };
 
 generateExcel();
